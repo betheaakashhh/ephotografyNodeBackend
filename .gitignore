@@ -1,0 +1,48 @@
+# Ignore node_modules folder
+node_modules/
+
+# Ignore build output
+dist/
+build/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore environment variables
+.env
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+# Ignore coverage reports
+coverage/
+# Ignore IDE specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+# Ignore npm and yarn lock files
+package-lock.json
+yarn.lock
+# Ignore OS generated files
+*.bak
+*.old
+*.orig
+# Ignore compiled files
+*.class
+*.o
+*.so
+*.exe
+# Ignore Python bytecode
+__pycache__/
+*.pyc
+# Ignore Ruby specific files
+*.gem
+.bundle/
+log
+tmp/
+vendor/bundle/

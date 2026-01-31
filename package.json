@@ -1,0 +1,71 @@
+{
+  
+  "name": "ephotography",
+  
+  "version": "1.0.0",
+  
+  "type": "module",
+  
+  "scripts": {
+  
+    
+  "dev": "nodemon src/app.js",
+  
+    
+  "rembg": "cd ../rmbg-service && venv\\Scripts\\activate && uvicorn main:app --port 7000"
+  
+  },
+  
+  "dependencies": {
+  
+    
+  "@bull-board/api": "^6.16.4",
+  
+    
+  "@bull-board/express": "^6.16.4",
+  
+    
+  "axios": "^1.13.4",
+  
+    
+  "bull": "^4.16.5",
+  
+    
+  "bull-board": "^1.7.2",
+  
+    
+  "cors": "^2.8.6",
+  
+    
+  "dotenv": "^17.2.3",
+  
+    
+  "express": "^5.2.1",
+  
+    
+  "form-data": "^4.0.5",
+  
+    
+  "fs": "^0.0.1-security",
+  
+    
+  "mongoose": "^9.1.5",
+  
+    
+  "multer": "^2.0.2",
+  
+    
+  "sharp": "^0.34.5",
+  
+    
+  "uuid": "^13.0.0"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "nodemon": "^3.1.11"
+  
+  }
+}
