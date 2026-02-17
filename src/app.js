@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import imageRoutes from './routes/image.routes.js'; 
-
+import { corsConfig, handlePreflight } from './middleware/corsConfig.js';
 import { fileURLToPath } from 'url';
 import axios from 'axios';
 
@@ -14,13 +14,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// CORS configuration
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
-}));
-
-// Body parsers
+app.use(corsConfig);
+app.use(handlePreflight);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -40,7 +35,7 @@ app.get('/health', (req, res) => {
 
 // Helper function to build correct URLs
 function buildPythonUrl(endpoint) {
-  const baseUrl = process.env.PYTHON_SERVICE_URL || 'http://localhost:7000';
+  const baseUrl = process.env.PYTHON_SERVICE_URL || process.env.PYTHON_LOCAL_URL || 'http://127.0.0.1:7000';
   // Remove trailing slash if present
   const cleanBase = baseUrl.replace(/\/$/, '');
   // Remove leading slash from endpoint if present
@@ -102,7 +97,7 @@ app.get('/api/jobs', async(req, res) => {
 
 // For the remove-bg endpoint in image.routes.js, use:
 function buildRemoveBgUrl() {
-  const baseUrl = process.env.PYTHON_SERVICE_URL || 'http://localhost:7000';
+  const baseUrl = process.env.PYTHON_SERVICE_URL || process.env.PYTHON_LOCAL_URL || 'http://127.0.0.1:7000';
   const cleanBase = baseUrl.replace(/\/$/, '');
   return `${cleanBase}/remove-bg/`;
 }
@@ -168,7 +163,7 @@ app.get('/api/jobs', async(req, res) => {
 app.get('/api/proxy-download/:job_id', async (req, res) => {
     try {
         const jobId = req.params.job_id;
-        const pythonUrl = `${process.env.PYTHON_SERVICE_URL || 'http://127.0.0.1:7000'}/download/${jobId}`;
+        const pythonUrl = `${process.env.PYTHON_SERVICE_URL ||process.env.PYTHON_LOCAL_URL ||'http://127.0.0.1:7000'}/download/${jobId}`;
         
         console.log(`📥 Proxying download for job: ${jobId}`);
         
@@ -210,7 +205,8 @@ app.get('/api/proxy-download/:job_id', async (req, res) => {
 // MongoDB health check
 app.get('/api/mongo-health', async (req, res) => {
   try {
-    const response = await axios.get(`${process.env.PYTHON_SERVICE_URL || 'http://localhost:7000'}/test-mongo`);
+    const pythonUrl = process.env.PYTHON_SERVICE_URL || process.env.PYTHON_LOCAL_URL || 'http://127.0.0.1:7000';
+    const response = await axios.get(`${pythonUrl}/test-mongo`);
     res.json({
       mongo_service: response.data,
       node_service: 'OK'
