@@ -1,5 +1,0 @@
-Processed image for job 166c3c5f-b7d0-46dd-bd48-11155b7b532d
-Preset: passport
-Copies: 1
-Background: #ffffff
-Date: 2026-01-28T20:10:14.056Z
